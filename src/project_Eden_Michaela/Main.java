@@ -102,7 +102,7 @@ public class Main {
             res = c.addLecturer(name, id, degreeType, degreeName, salary);
             System.out.println(res);
         }
-        System.out.println(Status.SUCCESS.getMessage());
+        System.out.println(Status.SUCCESS);
 
 
     }
