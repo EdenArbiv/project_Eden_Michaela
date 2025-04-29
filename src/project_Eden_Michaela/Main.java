@@ -20,7 +20,7 @@ public class Main {
             "Edit Committee ChairMan",
             "Delete Lecturer from Committee",
             "Add Study Department",
-            "Ass lecturer to study department",
+            "Add lecturer to study department",
             "Show Average of salary",
             "Show Average of salary Committee",
             "Show Lecturers details",
@@ -76,6 +76,7 @@ public class Main {
             System.out.println("Enter study department name: ");
             String depName = s.nextLine();
             res = c.addLecturerToDep(name, depName);
+            System.out.println(res);
         }
     }
 
@@ -127,7 +128,7 @@ public class Main {
             System.out.println("Enter lecturer id: ");
             String id = s.nextLine();
 
-            System.out.println("Enter degree type (BA_DEGREE,MA_DEGREE, DOCTOR, PROFESSOR: ");
+            System.out.println("Enter degree type (BA_DEGREE,MA_DEGREE, DOCTOR, PROFESSOR): ");
             String degree = s.nextLine();
             DegreeType degreeType = DegreeType.valueOf(degree.toUpperCase());
 
@@ -135,7 +136,7 @@ public class Main {
             String degreeName = s.nextLine();
 
             System.out.println("Enter salary");
-            double salary = s.nextInt();
+            double salary = s.nextDouble();
             s.nextLine();
 
             res = c.addLecturer(name, id, degreeType, degreeName, salary);

@@ -126,7 +126,7 @@ public class College {
         if(!studyDepartment.addLecturer(lecturer)){
             return Status.LECTURER_EXIST;
         }
-        lecturer.changeDep(studyDepartment);
+        lecturer.setStudyDepartment(studyDepartment);
         return Status.SUCCESS;
     }
 }

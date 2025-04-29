@@ -26,4 +26,9 @@ public class StudyDepartment {
         lecturers[numOfLecturers++] = lecturer;
         return true;
     }
+
+    @Override
+    public String toString() {
+        return name;
+    }
 }

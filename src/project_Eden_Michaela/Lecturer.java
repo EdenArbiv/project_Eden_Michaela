@@ -33,9 +33,11 @@ public class Lecturer {
         return salary;
     }
 
-    public void changeDep(StudyDepartment studyDepartment) {
-
+    public void setStudyDepartment(StudyDepartment studyDepartment) {
+        this.studyDepartment = studyDepartment;
     }
+
+
 
     @Override
     public String toString() {
