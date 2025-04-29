@@ -1,5 +1,7 @@
 package project_Eden_Michaela;
 
+import java.util.Arrays;
+
 public class Committee {
     private String name;
     private Lecturer[] lecturers;
@@ -15,5 +17,14 @@ public class Committee {
 
     public String getName() {
         return name;
+    }
+
+    @Override
+    public String toString() {
+        return "Committee{" +
+                "name='" + name + '\'' +
+                ", lecturers=" + Arrays.toString(lecturers) +
+                ", committeeChairman=" + committeeChairman +
+                '}';
     }
 }
