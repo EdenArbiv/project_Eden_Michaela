@@ -27,8 +27,25 @@ public class StudyDepartment {
         return true;
     }
 
+    public Lecturer[] getLecturers() {
+        return lecturers;
+    }
+
+    public double getAverage() {
+        double res = 0.0;
+        double average = 0.0;
+        for (int i = 0; i < numOfLecturers; i++) {
+            res += lecturers[i].getSalary();
+        }
+        average = res/numOfLecturers;
+        return average;
+    }
+
     @Override
     public String toString() {
         return name;
     }
+
+
+
 }

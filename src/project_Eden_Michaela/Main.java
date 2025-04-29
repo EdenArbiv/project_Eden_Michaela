@@ -43,7 +43,7 @@ public class Main {
                 case 6 -> addStudyDepartmentDetails(c);
                 case 7 -> addLecturerToDepDetails(c);
                 case 8 -> showAverageSalary(c);
-                case 9 -> showAverageSalaryCommittee(c);
+                case 9 -> showAverageSalaryDep(c);
                 case 10 -> showLecturersDetails(c);
                 case 11 -> showCommitteeDetails(c);
                 default -> System.out.println("Unexpected value");
@@ -59,10 +59,22 @@ public class Main {
         System.out.println(c.getLecturers());
     }
 
-    private static void showAverageSalaryCommittee(College c) {
-        System.out.println(c.getAverageSalaryCommittee());
-
+    private static void showAverageSalaryDep(College c) {
+        Status res = Status.NOT_FOUND;
+        while (!res.equals(Status.SUCCESS)) {
+            System.out.println("Enter study department: ");
+            String name = s.nextLine();
+            StudyDepartment findDep = c.findDepartmentByName(name);
+            if (findDep == null){
+                res = Status.DEPARTMENT_NOT_EXIST;
+                System.out.println(res);
+            }else {
+                res = Status.SUCCESS;
+                System.out.println(c.getAverageSalaryCommittee(findDep));
+            }
+        }
     }
+
 
     private static void showAverageSalary(College c) {
         System.out.println("Average salary of lecturers is: " + c.getAverageSalary());

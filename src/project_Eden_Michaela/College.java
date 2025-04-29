@@ -15,7 +15,28 @@ public class College {
         lecturers = new Lecturer[0];
         studyDepartments = new StudyDepartment[0];
         committees = new Committee[0];
+
+
     }
+
+    public StudyDepartment findDepartmentByName(String name){
+        for (StudyDepartment department: studyDepartments){
+            if(department.getName().equals(name)){
+                return department;
+            }
+        }
+        return null;
+    }
+
+    public Lecturer findLecturerByName(String name){
+        for (Lecturer lecturer: lecturers){
+            if(lecturer.getName().equals(name)){
+                return lecturer;
+            }
+        }
+        return null;
+    }
+
 
 
     public Status addLecturer(String name, String id, DegreeType degreeType, String degreeName, double salary) {
@@ -29,14 +50,6 @@ public class College {
         return Status.SUCCESS;
     }
 
-    private Lecturer findLecturerByName(String name){
-        for (Lecturer lecturer: lecturers){
-            if(lecturer.getName().equals(name)){
-                return lecturer;
-            }
-        }
-        return null;
-    }
 
     public Status addCommittee(String name, String committeeChairman) {
         if(Utils.isExist(committees, numOfCommittee, name)){
@@ -80,13 +93,13 @@ public class College {
     }
 
 
-    public double getAverageSalaryCommittee() {
-        return 0;
+    public double getAverageSalaryCommittee(StudyDepartment findDep) {
+        return findDep.getAverage();
     }
 
     public double getAverageSalary() {
         double res = 0.0;
-        double average = 0.0;
+        double average;
         for (int i = 0; i < numOfLecturers; i++) {
             res += lecturers[i].getSalary();
         }
@@ -105,14 +118,7 @@ public class College {
         return Status.SUCCESS;
     }
 
-    private StudyDepartment findDepartmentByName(String name){
-        for (StudyDepartment department: studyDepartments){
-            if(department.getName().equals(name)){
-                return department;
-            }
-        }
-        return null;
-    }
+
 
     public Status addLecturerToDep(String name, String department) {
         Lecturer lecturer = findLecturerByName(name);
