@@ -20,9 +20,9 @@ public class Committee {
 
     public boolean findLecturer(String name) {
         if(Utils.isExist(lecturers,numOfLecturers, name)){
-            return false;
+            return true;
         }
-        return true;
+        return false;
     }
 
     public void addLecturer(Lecturer lecturer) {
@@ -36,13 +36,25 @@ public class Committee {
         return committeeChairman;
     }
 
+    public void removeLecturer(Lecturer lecturer) {
+        Lecturer[] newLecturers = new Lecturer[numOfLecturers - 1];
+        for (int i = 0; i < numOfLecturers; i++) {
+            if (!lecturers[i].getName().equals(lecturer.getName())){
+                newLecturers[i] = lecturers[i];
+            }
+        }
+    }
+
     @Override
     public String toString() {
-        return "Committee{" +
-                "name='" + name + '\'' +
-                ", lecturers=" + Arrays.toString(lecturers) +
-                ", committeeChairman=" + committeeChairman +
-                '}';
+        StringBuilder sb = new StringBuilder();
+        sb.append("Committee{name='").append(name).append("', chairman=").append(committeeChairman.getName()).append(", lecturers=[");
+        for (int i = 0; i < numOfLecturers; i++) {
+            sb.append(lecturers[i].getName());
+            if (i < numOfLecturers - 1) sb.append(", ");
+        }
+        sb.append("]}");
+        return sb.toString();
     }
 
 }

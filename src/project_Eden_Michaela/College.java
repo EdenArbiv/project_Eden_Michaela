@@ -149,7 +149,7 @@ public class College {
             return Status.LECTURER_NOT_EXIST;
         }
         if(committee == null){
-            return Status.CHAIRMAN_NOT_EXIST;
+            return Status.COMMITTEE_NOT_EXIST;
         }
         if(committee.findLecturer(lecName)) {
             return Status.LECTURER_EX_COM;
@@ -159,6 +159,23 @@ public class College {
         }
         committee.addLecturer(lecturer);
         lecturer.addCommittee(committee);
+        return Status.SUCCESS;
+    }
+
+    public Status removeLecturerFromCommittee(String lecName, String comName) {
+        Lecturer lecturer = findLecturerByName(lecName);
+        Committee committee = findCommitteeByName(comName);
+        if(lecturer == null) {
+            return Status.LECTURER_NOT_EXIST;
+        }
+        if(committee == null){
+            return Status.COMMITTEE_NOT_EXIST;
+        }
+        if(!committee.findLecturer(lecName)) {
+            return Status.LECTURER_NOT_EX_COM;
+        }
+        committee.removeLecturer(lecturer);
+        lecturer.removeCommittee(committee);
         return Status.SUCCESS;
     }
 }

@@ -47,15 +47,20 @@ public class Lecturer {
 
     @Override
     public String toString() {
-        return "Lecturer{" +
-                "name='" + name + '\'' +
-                ", id='" + id + '\'' +
-                ", degree=" + degree +
-                ", degreeName='" + degreeName + '\'' +
-                ", salary=" + salary +
-                ", committees=" + Arrays.toString(committees) +
-                ", studyDepartment=" + studyDepartment +
-                '}';
+        StringBuilder sb = new StringBuilder();
+        sb.append("Lecturer{");
+        sb.append("name=").append(name);
+        sb.append(", id=").append(id);
+        sb.append(", degree=").append(degree);
+        sb.append(", degreeName=").append(degreeName);
+        sb.append(", salary=").append(salary);
+        sb.append(", committees=[");
+        for (int i = 0; i < numOfCommittees; i++) {
+            sb.append(committees[i].getName());
+            if (i < numOfCommittees - 1) sb.append(", ");
+        }
+        sb.append("], studyDepartment=").append(studyDepartment);
+        sb.append('}');
+        return sb.toString();
     }
-
 }
