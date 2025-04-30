@@ -102,6 +102,15 @@ public class Main {
     }
 
     private static void addLecturerCommitteeDetails(College c) {
+        Status res = Status.DEPARTMENT_EXIST;
+        while (!res.equals(Status.SUCCESS)) {
+            System.out.println("Enter lecturer name: ");
+            String name = s.nextLine();
+            System.out.println("Enter committee name: ");
+            String comName = s.nextLine();
+            res = c.addLecturerCommittee(name, comName);
+            System.out.println(res);
+        }
     }
 
     private static void addStudyDepartmentDetails(College c) {

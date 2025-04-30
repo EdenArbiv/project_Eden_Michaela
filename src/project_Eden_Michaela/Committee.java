@@ -18,6 +18,24 @@ public class Committee {
         return name;
     }
 
+    public boolean findLecturer(String name) {
+        if(Utils.isExist(lecturers,numOfLecturers, name)){
+            return false;
+        }
+        return true;
+    }
+
+    public void addLecturer(Lecturer lecturer) {
+        if (numOfLecturers == lecturers.length){
+            lecturers = (Lecturer[]) Utils.resizeArr(lecturers);
+        }
+        lecturers[numOfLecturers++] = lecturer;
+    }
+
+    public Lecturer getCommitteeChairman() {
+        return committeeChairman;
+    }
+
     @Override
     public String toString() {
         return "Committee{" +
@@ -26,4 +44,5 @@ public class Committee {
                 ", committeeChairman=" + committeeChairman +
                 '}';
     }
+
 }

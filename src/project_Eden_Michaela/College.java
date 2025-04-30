@@ -141,4 +141,24 @@ public class College {
         lecturer.setStudyDepartment(studyDepartment);
         return Status.SUCCESS;
     }
+
+    public Status addLecturerCommittee(String lecName, String comName) {
+        Lecturer lecturer = findLecturerByName(lecName);
+        Committee committee = findCommitteeByName(comName);
+        if(lecturer == null) {
+            return Status.LECTURER_NOT_EXIST;
+        }
+        if(committee == null){
+            return Status.CHAIRMAN_NOT_EXIST;
+        }
+        if(committee.findLecturer(lecName)) {
+            return Status.LECTURER_EX_COM;
+        }
+        if(committee.getCommitteeChairman().getName().equals(lecName)) {
+            return Status.ALREADY_CHAIRMAN;
+        }
+        committee.addLecturer(lecturer);
+        lecturer.addCommittee(committee);
+        return Status.SUCCESS;
+    }
 }

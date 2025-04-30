@@ -37,6 +37,13 @@ public class Lecturer {
         this.studyDepartment = studyDepartment;
     }
 
+    public void addCommittee(Committee committee) {
+        if (numOfCommittees == committees.length){
+            committees = (Committee[]) Utils.resizeArr(committees);
+        }
+        committees[numOfCommittees++] = committee;
+    }
+
 
     @Override
     public String toString() {

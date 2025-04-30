@@ -4,6 +4,7 @@ public enum Status {
     SUCCESS("Operation completed Successfully"),
     FAILED("Operation failed"),
     LECTURER_EXIST("Lecturer already exist, please try again: "),
+    LECTURER_EX_COM("Lecturer already exist in the committee"),
     LECTURER_NOT_EXIST("Lecturer not exist, please try again: "),
     COMMITTEE_EXIST("Committee already exist, please try again: "),
     COMMITTEE_NOT_EXIST("Committee not exist, please try again: "),
@@ -11,6 +12,7 @@ public enum Status {
     DEPARTMENT_NOT_EXIST("Study department not exist, please try again: "),
     CHAIRMAN_NOT_EXIST("Chairman not exist"),
     AT_LEAST_DOCTOR("The lecturer is required to have at least a doctorate"),
+    ALREADY_CHAIRMAN("The lecturer is already chairman in the committee"),
     NOT_FOUND("Item Not found"),
     INVALID_INPUT("Invalid input provided");
 
