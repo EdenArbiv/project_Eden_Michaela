@@ -41,15 +41,17 @@ public class Committee {
     }
 
     public void removeLecturer(Lecturer lecturer) {
-        Lecturer[] newLecturers = new Lecturer[numOfLecturers - 1];
-        int newIndex = 0;
         for (int i = 0; i < numOfLecturers; i++) {
-            if (!lecturers[i].getName().equals(lecturer.getName())) {
-                newLecturers[newIndex++] = lecturers[i];
+            if (lecturers[i].getName().equals(lecturer.getName())) {
+                // להזיז שמאלה
+                for (int j = i; j < numOfLecturers - 1; j++) {
+                    lecturers[j] = lecturers[j + 1];
+                }
+                // מחיקת המקום האחרון
+                lecturers[numOfLecturers - 1] = null;
+                numOfLecturers--;
             }
         }
-        lecturers = newLecturers;
-        numOfLecturers--;
     }
 
     @Override

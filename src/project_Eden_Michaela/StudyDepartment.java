@@ -56,7 +56,6 @@ public class StudyDepartment {
                 // מחיקת המקום האחרון
                 lecturers[numOfLecturers - 1] = null;
                 numOfLecturers--;
-                return;
             }
         }
     }

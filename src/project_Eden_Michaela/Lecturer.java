@@ -45,17 +45,18 @@ public class Lecturer {
     }
 
     public void removeCommittee(Committee committee) {
-        Committee[] newCommittee = new Committee[numOfCommittees - 1];
-        int newIndex = 0;
         for (int i = 0; i < numOfCommittees; i++) {
-            if (!committees[i].getName().equals(committee.getName())) {
-                newCommittee[newIndex++] = committees[i];
+            if (committees[i].getName().equals(committee.getName())) {
+                // מזיז את כל שאר הקומיטאות שמאלה
+                for (int j = i; j < numOfCommittees - 1; j++) {
+                    committees[j] = committees[j + 1];
+                }
+                // ניקוי התא האחרון
+                committees[numOfCommittees - 1] = null;
+                numOfCommittees--;
             }
         }
-        committees = newCommittee;
-        numOfCommittees--;
     }
-
 
     @Override
     public String toString() {
