@@ -18,6 +18,10 @@ public class Committee {
         return name;
     }
 
+    public void setCommitteeChairman(Lecturer committeeChairman) {
+        this.committeeChairman = committeeChairman;
+    }
+
     public boolean findLecturer(String name) {
         if(Utils.isExist(lecturers,numOfLecturers, name)){
             return true;
@@ -45,6 +49,7 @@ public class Committee {
             }
         }
         lecturers = newLecturers;
+        numOfLecturers--;
     }
 
     @Override

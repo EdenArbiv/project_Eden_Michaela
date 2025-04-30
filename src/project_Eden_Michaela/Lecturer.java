@@ -53,6 +53,7 @@ public class Lecturer {
             }
         }
         committees = newCommittee;
+        numOfCommittees--;
     }
 
 

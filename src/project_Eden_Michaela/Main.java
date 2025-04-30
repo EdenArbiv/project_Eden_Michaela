@@ -107,7 +107,15 @@ public class Main {
     }
 
     private static void editCommitteeChairManDetails(College c) {
-
+        Status res = Status.FAILED;
+        while (!res.equals(Status.SUCCESS)) {
+            System.out.println("Enter lecturer name: ");
+            String name = s.nextLine();
+            System.out.println("Enter committee name: ");
+            String comName = s.nextLine();
+            res = c.editCommitteeChairMan(name, comName);
+            System.out.println(res);
+        }
     }
 
     private static void addLecturerCommitteeDetails(College c) {
@@ -182,6 +190,4 @@ public class Main {
         s.nextLine();
         return choice;
     }
-
-
 }

@@ -16,6 +16,10 @@ public class StudyDepartment {
         return name;
     }
 
+    public int getNumOfLecturers() {
+        return numOfLecturers;
+    }
+
     public boolean addLecturer(Lecturer lecturer) {
         if(Utils.isExist(lecturers,numOfLecturers,lecturer.getName())){
             return false;

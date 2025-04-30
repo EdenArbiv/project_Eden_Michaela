@@ -138,6 +138,11 @@ public class College {
         if(!studyDepartment.addLecturer(lecturer)){
             return Status.LECTURER_EXIST;
         }
+        for (int i = 0; i < numOfStudyDepartment; i++) {
+            for (int j = 0; j < studyDepartments[i].getNumOfLecturers(); j++) {
+
+            }
+        }
         lecturer.setStudyDepartment(studyDepartment);
         return Status.SUCCESS;
     }
@@ -176,6 +181,29 @@ public class College {
         }
         committee.removeLecturer(lecturer);
         lecturer.removeCommittee(committee);
+        return Status.SUCCESS;
+    }
+
+    public Status editCommitteeChairMan(String lecName, String comName) {
+        Lecturer lecturer = findLecturerByName(lecName);
+        Committee committee = findCommitteeByName(comName);
+        if(lecturer == null) {
+            return Status.LECTURER_NOT_EXIST;
+        }
+        if(committee == null){
+            return Status.COMMITTEE_NOT_EXIST;
+        }
+        if(lecturer.getDegree() != DegreeType.DOCTOR && lecturer.getDegree() != DegreeType.PROFESSOR ){
+            return Status.AT_LEAST_DOCTOR;
+        }
+        if(committee.getCommitteeChairman().getName().equals(lecName)) {
+            return Status.ALREADY_CHAIRMAN;
+        }
+        committee.setCommitteeChairman(lecturer);
+        if(committee.findLecturer(lecName)) {
+            committee.removeLecturer(lecturer);
+            lecturer.removeCommittee(committee);
+        }
         return Status.SUCCESS;
     }
 }
