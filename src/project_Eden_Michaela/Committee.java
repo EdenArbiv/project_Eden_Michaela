@@ -14,7 +14,6 @@ public class Committee {
         lecturers = new Lecturer[0];
     }
 
-
     public String getName() {
         return name;
     }

@@ -16,27 +16,34 @@ public class College {
         studyDepartments = new StudyDepartment[0];
         committees = new Committee[0];
 
-
     }
 
     public StudyDepartment findDepartmentByName(String name){
-        for (StudyDepartment department: studyDepartments){
-            if(department.getName().equals(name)){
-                return department;
+        for (int i = 0; i < numOfStudyDepartment; i++) {
+            if(studyDepartments[i].getName().equals(name)){
+                return studyDepartments[i];
             }
         }
         return null;
     }
 
     public Lecturer findLecturerByName(String name){
-        for (Lecturer lecturer: lecturers){
-            if(lecturer.getName().equals(name)){
-                return lecturer;
+        for (int i = 0; i < numOfLecturers ; i++) {
+            if(lecturers[i].getName().equals(name)){
+                return lecturers[i];
             }
         }
         return null;
     }
 
+    public Committee findCommitteeByName(String name){
+        for (int i = 0; i < numOfCommittee ; i++) {
+            if(committees[i].getName().equals(name)){
+                return committees[i];
+            }
+        }
+        return null;
+    }
 
 
     public Status addLecturer(String name, String id, DegreeType degreeType, String degreeName, double salary) {
@@ -103,7 +110,7 @@ public class College {
         for (int i = 0; i < numOfLecturers; i++) {
             res += lecturers[i].getSalary();
         }
-        average = res/numOfLecturers;
+        average = Math.round(res/numOfLecturers* 100.0) / 100.0; // מעגל ל-2 ספרות אחרי הנקודה
         return average;
     }
 
@@ -117,7 +124,6 @@ public class College {
         studyDepartments[numOfStudyDepartment++] = new StudyDepartment(name, numOfStudents);
         return Status.SUCCESS;
     }
-
 
 
     public Status addLecturerToDep(String name, String department) {

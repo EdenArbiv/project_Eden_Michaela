@@ -38,7 +38,6 @@ public class Lecturer {
     }
 
 
-
     @Override
     public String toString() {
         return "Lecturer{" +

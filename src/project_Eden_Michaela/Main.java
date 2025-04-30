@@ -1,8 +1,10 @@
 package project_Eden_Michaela;
-
 import java.util.Scanner;
 
 public class Main {
+    // Eden and Michaela
+    // Eden 315253740
+    // Michaela 323819342
 
     public static void main(String[] args) {
         System.out.println("Enter collage name: ");
@@ -11,7 +13,7 @@ public class Main {
         run(c);
         s.close();
     }
-
+    private static final Scanner s = new Scanner(System.in);
     private static final String[] MENU = {
             "Exit Program",
             "Add Lecturer",
@@ -22,11 +24,10 @@ public class Main {
             "Add Study Department",
             "Add lecturer to study department",
             "Show Average of salary",
-            "Show Average of salary Committee",
+            "Show Average of salary Department",
             "Show Lecturers details",
             "Show Committee details"
     };
-    private static Scanner s = new Scanner(System.in);
 
 
     public static void run(College c) {
@@ -114,14 +115,11 @@ public class Main {
             res = c.addStudyDepartment(name, numOfStudents);
             System.out.println(res);
         }
-
-
     }
 
     private static void addCommitteeDetails(College c) {
         Status res = Status.COMMITTEE_EXIST;
         while (!res.equals(Status.SUCCESS)) {
-            Lecturer chairmanLecturer;
             System.out.println("Enter committee name: ");
             String name = s.nextLine();
             System.out.println("Enter chairman name: ");
