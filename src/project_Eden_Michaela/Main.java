@@ -20,7 +20,7 @@ public class Main {
             "Add Committee",
             "Add lecturer to Committee",
             "Edit Committee ChairMan",
-            "Delete Lecturer from Committee",
+            "Remove Lecturer from Committee",
             "Add Study Department",
             "Add lecturer to study department",
             "Show Average of salary",
@@ -104,7 +104,6 @@ public class Main {
             res = c.removeLecturerFromCommittee(name, comName);
             System.out.println(res);
         }
-
     }
 
     private static void editCommitteeChairManDetails(College c) {

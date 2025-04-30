@@ -38,11 +38,13 @@ public class Committee {
 
     public void removeLecturer(Lecturer lecturer) {
         Lecturer[] newLecturers = new Lecturer[numOfLecturers - 1];
+        int newIndex = 0;
         for (int i = 0; i < numOfLecturers; i++) {
-            if (!lecturers[i].getName().equals(lecturer.getName())){
-                newLecturers[i] = lecturers[i];
+            if (!lecturers[i].getName().equals(lecturer.getName())) {
+                newLecturers[newIndex++] = lecturers[i];
             }
         }
+        lecturers = newLecturers;
     }
 
     @Override

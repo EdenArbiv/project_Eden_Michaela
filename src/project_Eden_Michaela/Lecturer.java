@@ -44,6 +44,17 @@ public class Lecturer {
         committees[numOfCommittees++] = committee;
     }
 
+    public void removeCommittee(Committee committee) {
+        Committee[] newCommittee = new Committee[numOfCommittees - 1];
+        int newIndex = 0;
+        for (int i = 0; i < numOfCommittees; i++) {
+            if (!committees[i].getName().equals(committee.getName())) {
+                newCommittee[newIndex++] = committees[i];
+            }
+        }
+        committees = newCommittee;
+    }
+
 
     @Override
     public String toString() {
@@ -63,4 +74,5 @@ public class Lecturer {
         sb.append('}');
         return sb.toString();
     }
+
 }
