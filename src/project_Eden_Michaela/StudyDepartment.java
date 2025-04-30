@@ -1,5 +1,7 @@
 package project_Eden_Michaela;
 
+import java.util.Arrays;
+
 public class StudyDepartment {
     private String name;
     private int numOfStudents;
@@ -36,20 +38,40 @@ public class StudyDepartment {
     }
 
     public double getAverage() {
+        if (numOfLecturers == 0) return 0.0;
         double res = 0.0;
-        double average = 0.0;
         for (int i = 0; i < numOfLecturers; i++) {
             res += lecturers[i].getSalary();
         }
-        average = res/numOfLecturers;
-        return average;
+        return Math.round((res / numOfLecturers) * 100.0) / 100.0;
+    }
+
+    public void removeLecturer(Lecturer lecturer) {
+        for (int i = 0; i < numOfLecturers; i++) {
+            if (lecturers[i].getName().equals(lecturer.getName())) {
+                // להזיז שמאלה
+                for (int j = i; j < numOfLecturers - 1; j++) {
+                    lecturers[j] = lecturers[j + 1];
+                }
+                // מחיקת המקום האחרון
+                lecturers[numOfLecturers - 1] = null;
+                numOfLecturers--;
+                return;
+            }
+        }
     }
 
     @Override
     public String toString() {
-        return name;
+        StringBuilder sb = new StringBuilder();
+        sb.append("StudyDepartment{name='").append(name).append("', lecturers=[");
+        for (int i = 0; i < numOfLecturers; i++) {
+            sb.append(lecturers[i].getName());
+            if (i < numOfLecturers - 1) {
+                sb.append(", ");
+            }
+        }
+        sb.append("]}");
+        return sb.toString();
     }
-
-
-
 }

@@ -26,7 +26,8 @@ public class Main {
             "Show Average of salary",
             "Show Average of salary Department",
             "Show Lecturers details",
-            "Show Committee details"
+            "Show Committee details",
+            "Show Study Departments details"
     };
 
 
@@ -47,6 +48,7 @@ public class Main {
                 case 9 -> showAverageSalaryDep(c);
                 case 10 -> showLecturersDetails(c);
                 case 11 -> showCommitteeDetails(c);
+                case 12 -> showDepartmentDetails(c);
                 default -> System.out.println("Unexpected value");
             }
         } while (userChosen != 0);
@@ -54,6 +56,10 @@ public class Main {
 
     private static void showCommitteeDetails(College c) {
         System.out.println(c.getCommittees());
+    }
+
+    private static void showDepartmentDetails(College c) {
+        System.out.println(c.getDepartments());
     }
 
     private static void showLecturersDetails(College c) {

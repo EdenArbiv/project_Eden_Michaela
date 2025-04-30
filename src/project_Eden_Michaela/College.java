@@ -98,6 +98,15 @@ public class College {
         sb.append("]");
         return sb;
     }
+    public StringBuilder getDepartments() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("[");
+        for (int i = 0; i < numOfStudyDepartment; i++) {
+            sb.append(studyDepartments[i].toString()).append("\n");
+        }
+        sb.append("]");
+        return sb;
+    }
 
 
     public double getAverageSalaryCommittee(StudyDepartment findDep) {
@@ -139,8 +148,9 @@ public class College {
             return Status.LECTURER_EXIST;
         }
         for (int i = 0; i < numOfStudyDepartment; i++) {
-            for (int j = 0; j < studyDepartments[i].getNumOfLecturers(); j++) {
-
+            StudyDepartment currentDep = studyDepartments[i];
+            if (!currentDep.getName().equals(studyDepartment.getName())) {
+                currentDep.removeLecturer(lecturer);
             }
         }
         lecturer.setStudyDepartment(studyDepartment);
@@ -206,4 +216,5 @@ public class College {
         }
         return Status.SUCCESS;
     }
+
 }
