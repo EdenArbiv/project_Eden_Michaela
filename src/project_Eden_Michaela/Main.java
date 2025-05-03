@@ -48,7 +48,7 @@ public class Main {
                 case 9 -> showAverageSalaryDep(c);
                 case 10 -> showLecturersDetails(c);
                 case 11 -> showCommitteeDetails(c);
-                case 12 -> showDepartmentDetails(c);
+                // case 12 -> showDepartmentDetails(c); // for debugging
                 default -> System.out.println("Unexpected value");
             }
         } while (userChosen != 0);
@@ -141,8 +141,13 @@ public class Main {
         while (!res.equals(Status.SUCCESS)) {
             System.out.println("Enter study department name: ");
             String name = s.nextLine();
+
             System.out.println("Enter number of students: ");
             int numOfStudents = s.nextInt();
+            while (numOfStudents <= 0) {
+                System.out.println("Enter number of students (must be positive): ");
+                numOfStudents = s.nextInt();
+            }
             s.nextLine();
             res = c.addStudyDepartment(name, numOfStudents);
             System.out.println(res);
@@ -172,15 +177,30 @@ public class Main {
 
             System.out.println("Enter degree type (BA_DEGREE,MA_DEGREE, DOCTOR, PROFESSOR): ");
             String degree = s.nextLine();
-            DegreeType degreeType = DegreeType.valueOf(degree.toUpperCase());
 
+            while (!degree.equalsIgnoreCase("BA_DEGREE") &&
+                    !degree.equalsIgnoreCase("MA_DEGREE") &&
+                    !degree.equalsIgnoreCase("DOCTOR") &&
+                    !degree.equalsIgnoreCase("PROFESSOR")) {
+
+                System.out.println("Invalid Degree Type. Please enter one of the following: BA_DEGREE, MA_DEGREE, DOCTOR, PROFESSOR:");
+                degree = s.nextLine();
+            }
+
+            DegreeType degreeType = DegreeType.valueOf(degree.toUpperCase());
             System.out.println("Enter degree name: ");
             String degreeName = s.nextLine();
 
-            System.out.println("Enter salary");
-            double salary = s.nextDouble();
-            s.nextLine();
+            double salary = -1;
+            while (salary < 0) {
+                System.out.println("Enter salary (positive number):");
+                salary = s.nextDouble();
+                s.nextLine();
 
+                if (salary < 0) {
+                    System.out.println("Salary cannot be negative. Try again.");
+                }
+            }
             res = c.addLecturer(name, id, degreeType, degreeName, salary);
             System.out.println(res);
         }

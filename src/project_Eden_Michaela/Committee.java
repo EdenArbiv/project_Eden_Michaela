@@ -1,7 +1,5 @@
 package project_Eden_Michaela;
 
-import java.util.Arrays;
-
 public class Committee {
     private String name;
     private Lecturer[] lecturers;
@@ -23,10 +21,7 @@ public class Committee {
     }
 
     public boolean findLecturer(String name) {
-        if(Utils.isExist(lecturers,numOfLecturers, name)){
-            return true;
-        }
-        return false;
+        return Utils.isExist(lecturers, numOfLecturers, name);
     }
 
     public void addLecturer(Lecturer lecturer) {

@@ -14,8 +14,7 @@ public enum Status {
     AT_LEAST_DOCTOR("The lecturer is required to have at least a doctorate"),
     ALREADY_CHAIRMAN("The lecturer is already chairman in the committee"),
     LECTURER_NOT_EX_COM("The lecturer is not in the committee"),
-    NOT_FOUND("Item Not found"),
-    INVALID_INPUT("Invalid input provided");
+    NOT_FOUND("Item Not found");
 
     private final String message;
 

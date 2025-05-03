@@ -47,7 +47,7 @@ public class College {
 
 
     public Status addLecturer(String name, String id, DegreeType degreeType, String degreeName, double salary) {
-        if(Utils.isExist(lecturers,numOfLecturers,name)){
+        if (Utils.isExist(lecturers,numOfLecturers,name)){
             return Status.LECTURER_EXIST;
         }
         if (numOfLecturers == lecturers.length) {
@@ -83,7 +83,10 @@ public class College {
         StringBuilder sb = new StringBuilder();
         sb.append("[");
         for (int i = 0; i < numOfLecturers; i++) {
-            sb.append(lecturers[i].toString()).append("\n");
+            sb.append(lecturers[i].toString());
+            if (i < numOfLecturers - 1) {
+                sb.append(System.lineSeparator());
+            }
         }
         sb.append("]");
         return sb;
@@ -114,12 +117,13 @@ public class College {
     }
 
     public double getAverageSalary() {
+        if (numOfLecturers == 0) return 0.0;
         double res = 0.0;
         double average;
         for (int i = 0; i < numOfLecturers; i++) {
             res += lecturers[i].getSalary();
         }
-        average = Math.round(res/numOfLecturers* 100.0) / 100.0; // מעגל ל-2 ספרות אחרי הנקודה
+        average = Math.round(res/numOfLecturers* 100.0) / 100.0; // מעגל ל2 ספרות אחרי הנקודה
         return average;
     }
 
