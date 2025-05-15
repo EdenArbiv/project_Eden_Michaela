@@ -1,6 +1,8 @@
 package project_Eden_Michaela;
 
 
+import static project_Eden_Michaela.Status.*;
+
 public class College {
     private final String collegeName;
     private Lecturer[] lecturers;
@@ -46,37 +48,34 @@ public class College {
     }
 
 
-    public Status addLecturer(String name, String id, DegreeType degreeType, String degreeName, double salary) {
+    public void addLecturer(String name, String id, DegreeType degreeType, String degreeName, double salary) throws CollegeException {
         if (Utils.isExist(lecturers,numOfLecturers,name)){
-            return Status.LECTURER_EXIST;
+            throw new CollegeException(LECTURER_EXIST.toString());
         }
         if (numOfLecturers == lecturers.length) {
             lecturers = (Lecturer[]) Utils.resizeArr(lecturers);
         }
         lecturers[numOfLecturers++] = new Lecturer(name, id, degreeType, degreeName, salary);
-        return Status.SUCCESS;
     }
 
 
-    public Status addCommittee(String name, String committeeChairman) {
+    public void addCommittee(String name, String committeeChairman) throws CollegeException {
         if(Utils.isExist(committees, numOfCommittee, name)){
-            return Status.COMMITTEE_EXIST;
+            throw new CollegeException(COMMITTEE_EXIST.toString());
         }
         if(!Utils.isExist(lecturers,numOfLecturers, committeeChairman)){
-            return Status.CHAIRMAN_NOT_EXIST;
+            throw new CollegeException(CHAIRMAN_NOT_EXIST.toString());
         }
         Lecturer chairmanLecturer = findLecturerByName(committeeChairman);
         if(chairmanLecturer != null){
             if(chairmanLecturer.getDegree() != DegreeType.DOCTOR && chairmanLecturer.getDegree() != DegreeType.PROFESSOR ){
-                return Status.AT_LEAST_DOCTOR;
+                throw new CollegeException(AT_LEAST_DOCTOR.toString());
             }
             if (numOfCommittee == committees.length) {
                 committees = (Committee[]) Utils.resizeArr(committees);
             }
             committees[numOfCommittee++] = new Committee(name, chairmanLecturer);
-            return Status.SUCCESS;
         }
-        return Status.FAILED;
     }
 
     public StringBuilder getLecturers() {
@@ -127,29 +126,28 @@ public class College {
         return average;
     }
 
-    public Status addStudyDepartment(String name, int numOfStudents) {
+    public void addStudyDepartment(String name, int numOfStudents) throws CollegeException {
         if(Utils.isExist(studyDepartments, numOfStudyDepartment, name)){
-            return Status.DEPARTMENT_EXIST;
+            throw new CollegeException(DEPARTMENT_EXIST.toString());
         }
         if (numOfStudyDepartment == studyDepartments.length) {
             studyDepartments = (StudyDepartment[]) Utils.resizeArr(studyDepartments);
         }
         studyDepartments[numOfStudyDepartment++] = new StudyDepartment(name, numOfStudents);
-        return Status.SUCCESS;
     }
 
 
-    public Status addLecturerToDep(String name, String department) {
+    public void addLecturerToDep(String name, String department) throws CollegeException {
         Lecturer lecturer = findLecturerByName(name);
         StudyDepartment studyDepartment = findDepartmentByName(department);
         if(studyDepartment == null) {
-            return Status.DEPARTMENT_NOT_EXIST;
+            throw new CollegeException(DEPARTMENT_NOT_EXIST.toString());
         }
         if(lecturer == null){
-            return Status.LECTURER_NOT_EXIST;
+            throw new CollegeException(LECTURER_NOT_EXIST.toString());
         }
         if(!studyDepartment.addLecturer(lecturer)){
-            return Status.LECTURER_EXIST;
+            throw new CollegeException(LECTURER_EXIST.toString());
         }
         for (int i = 0; i < numOfStudyDepartment; i++) {
             StudyDepartment currentDep = studyDepartments[i];
@@ -158,67 +156,62 @@ public class College {
             }
         }
         lecturer.setStudyDepartment(studyDepartment);
-        return Status.SUCCESS;
     }
 
-    public Status addLecturerCommittee(String lecName, String comName) {
+    public void addLecturerCommittee(String lecName, String comName) throws CollegeException {
         Lecturer lecturer = findLecturerByName(lecName);
         Committee committee = findCommitteeByName(comName);
         if(lecturer == null) {
-            return Status.LECTURER_NOT_EXIST;
+            throw new CollegeException(LECTURER_NOT_EXIST.toString());
         }
         if(committee == null){
-            return Status.COMMITTEE_NOT_EXIST;
+            throw new CollegeException(COMMITTEE_NOT_EXIST.toString());
         }
         if(committee.findLecturer(lecName)) {
-            return Status.LECTURER_EX_COM;
+            throw new CollegeException(LECTURER_EX_COM.toString());
         }
         if(committee.getCommitteeChairman().getName().equals(lecName)) {
-            return Status.ALREADY_CHAIRMAN;
+            throw new CollegeException(ALREADY_CHAIRMAN.toString());
         }
         committee.addLecturer(lecturer);
         lecturer.addCommittee(committee);
-        return Status.SUCCESS;
     }
 
-    public Status removeLecturerFromCommittee(String lecName, String comName) {
+    public void removeLecturerFromCommittee(String lecName, String comName) throws CollegeException {
         Lecturer lecturer = findLecturerByName(lecName);
         Committee committee = findCommitteeByName(comName);
         if(lecturer == null) {
-            return Status.LECTURER_NOT_EXIST;
+            throw new CollegeException(LECTURER_NOT_EXIST.toString());
         }
         if(committee == null){
-            return Status.COMMITTEE_NOT_EXIST;
+            throw new CollegeException(COMMITTEE_NOT_EXIST.toString());
         }
         if(!committee.findLecturer(lecName)) {
-            return Status.LECTURER_NOT_EX_COM;
+            throw new CollegeException(LECTURER_NOT_EX_COM.toString());
         }
         committee.removeLecturer(lecturer);
         lecturer.removeCommittee(committee);
-        return Status.SUCCESS;
     }
 
-    public Status editCommitteeChairMan(String lecName, String comName) {
+    public void editCommitteeChairMan(String lecName, String comName) throws CollegeException {
         Lecturer lecturer = findLecturerByName(lecName);
         Committee committee = findCommitteeByName(comName);
         if(lecturer == null) {
-            return Status.LECTURER_NOT_EXIST;
+            throw new CollegeException(LECTURER_NOT_EXIST.toString());
         }
         if(committee == null){
-            return Status.COMMITTEE_NOT_EXIST;
+            throw new CollegeException(COMMITTEE_NOT_EXIST.toString());
         }
         if(lecturer.getDegree() != DegreeType.DOCTOR && lecturer.getDegree() != DegreeType.PROFESSOR ){
-            return Status.AT_LEAST_DOCTOR;
+            throw new CollegeException(AT_LEAST_DOCTOR.toString());
         }
         if(committee.getCommitteeChairman().getName().equals(lecName)) {
-            return Status.ALREADY_CHAIRMAN;
+            throw new CollegeException(ALREADY_CHAIRMAN.toString());
         }
         committee.setCommitteeChairman(lecturer);
         if(committee.findLecturer(lecName)) {
             committee.removeLecturer(lecturer);
             lecturer.removeCommittee(committee);
         }
-        return Status.SUCCESS;
     }
-
 }

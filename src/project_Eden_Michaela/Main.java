@@ -1,12 +1,14 @@
 package project_Eden_Michaela;
 import java.util.Scanner;
 
+import static project_Eden_Michaela.Status.SUCCESS;
+
 public class Main {
     // Eden and Michaela
     // Eden 315253740
     // Michaela 323819342
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws CollegeException {
         System.out.println("Enter collage name: ");
         String name = s.nextLine();
         College c = new College(name);
@@ -31,7 +33,7 @@ public class Main {
     };
 
 
-    public static void run(College c) {
+    public static void run(College c) throws CollegeException {
         int userChosen;
         do {
             userChosen = showMenu(s);
@@ -68,7 +70,7 @@ public class Main {
 
     private static void showAverageSalaryDep(College c) {
         Status res = Status.NOT_FOUND;
-        while (!res.equals(Status.SUCCESS)) {
+        while (!res.equals(SUCCESS)) {
             System.out.println("Enter study department: ");
             String name = s.nextLine();
             StudyDepartment findDep = c.findDepartmentByName(name);
@@ -76,7 +78,7 @@ public class Main {
                 res = Status.DEPARTMENT_NOT_EXIST;
                 System.out.println(res);
             }else {
-                res = Status.SUCCESS;
+                res = SUCCESS;
                 System.out.println(c.getAverageSalaryCommittee(findDep));
             }
         }
@@ -88,121 +90,156 @@ public class Main {
     }
 
     private static void addLecturerToDepDetails(College c){
-        Status res = Status.DEPARTMENT_EXIST;
-        while (!res.equals(Status.SUCCESS)) {
-            System.out.println("Enter lecturer name: ");
-            String name = s.nextLine();
-            System.out.println("Enter study department name: ");
-            String depName = s.nextLine();
-            res = c.addLecturerToDep(name, depName);
-            System.out.println(res);
+        boolean isOk = false;
+        while (!isOk) {
+            try {
+                System.out.println("Enter lecturer name: ");
+                String name = s.nextLine();
+                System.out.println("Enter study department name: ");
+                String depName = s.nextLine();
+                c.addLecturerToDep(name, depName);
+                isOk = true;
+                System.out.println(SUCCESS);
+            } catch (CollegeException e) {
+                System.out.println(e.getMessage());
+            }
         }
     }
 
 
     private static void removeLecturerFromCommitteeDetails(College c) {
-        Status res = Status.FAILED;
-        while (!res.equals(Status.SUCCESS)) {
-            System.out.println("Enter lecturer name: ");
-            String name = s.nextLine();
-            System.out.println("Enter committee name: ");
-            String comName = s.nextLine();
-            res = c.removeLecturerFromCommittee(name, comName);
-            System.out.println(res);
+        boolean isOk = false;
+        while (!isOk) {
+            try {
+                System.out.println("Enter lecturer name: ");
+                String name = s.nextLine();
+                System.out.println("Enter committee name: ");
+                String comName = s.nextLine();
+                c.removeLecturerFromCommittee(name, comName);
+                isOk =true;
+                System.out.println(SUCCESS);
+            } catch (CollegeException e) {
+                System.out.println(e.getMessage());
+            }
         }
     }
 
     private static void editCommitteeChairManDetails(College c) {
-        Status res = Status.FAILED;
-        while (!res.equals(Status.SUCCESS)) {
-            System.out.println("Enter lecturer name: ");
-            String name = s.nextLine();
-            System.out.println("Enter committee name: ");
-            String comName = s.nextLine();
-            res = c.editCommitteeChairMan(name, comName);
-            System.out.println(res);
+        boolean isOk = false;
+        while (!isOk) {
+            try {
+                System.out.println("Enter lecturer name: ");
+                String name = s.nextLine();
+                System.out.println("Enter committee name: ");
+                String comName = s.nextLine();
+                c.editCommitteeChairMan(name, comName);
+                isOk = true;
+                System.out.println(SUCCESS);
+            } catch (CollegeException e) {
+                System.out.println(e.getMessage());
+            }
         }
     }
 
     private static void addLecturerCommitteeDetails(College c) {
-        Status res = Status.FAILED;
-        while (!res.equals(Status.SUCCESS)) {
-            System.out.println("Enter lecturer name: ");
-            String name = s.nextLine();
-            System.out.println("Enter committee name: ");
-            String comName = s.nextLine();
-            res = c.addLecturerCommittee(name, comName);
-            System.out.println(res);
+        boolean isOk = false;
+        while (!isOk) {
+            try {
+                System.out.println("Enter lecturer name: ");
+                String name = s.nextLine();
+                System.out.println("Enter committee name: ");
+                String comName = s.nextLine();
+                c.addLecturerCommittee(name, comName);
+                isOk = true;
+                System.out.println(SUCCESS);
+            } catch (CollegeException e){
+                System.out.println(e.getMessage());
+            }
         }
     }
 
     private static void addStudyDepartmentDetails(College c) {
-        Status res = Status.FAILED;
-        while (!res.equals(Status.SUCCESS)) {
-            System.out.println("Enter study department name: ");
-            String name = s.nextLine();
+        boolean isOk = false;
+        while (!isOk) {
+            try{
+                System.out.println("Enter study department name: ");
+                String name = s.nextLine();
 
-            System.out.println("Enter number of students: ");
-            int numOfStudents = s.nextInt();
-            while (numOfStudents <= 0) {
-                System.out.println("Enter number of students (must be positive): ");
-                numOfStudents = s.nextInt();
+                System.out.println("Enter number of students: ");
+                int numOfStudents = s.nextInt();
+                while (numOfStudents <= 0) {
+                    System.out.println("Enter number of students (must be positive): ");
+                    numOfStudents = s.nextInt();
+                }
+                s.nextLine();
+                c.addStudyDepartment(name, numOfStudents);
+                isOk = true;
+                System.out.println(SUCCESS);
+            } catch (CollegeException e) {
+                System.out.println(e.getMessage());
             }
-            s.nextLine();
-            res = c.addStudyDepartment(name, numOfStudents);
-            System.out.println(res);
         }
     }
 
-    private static void addCommitteeDetails(College c) {
-        Status res = Status.FAILED;
-        while (!res.equals(Status.SUCCESS)) {
-            System.out.println("Enter committee name: ");
-            String name = s.nextLine();
-            System.out.println("Enter chairman name: ");
-            String chairman = s.nextLine();
-            res = c.addCommittee(name, chairman);
-            System.out.println(res);
+    private static void addCommitteeDetails(College c) throws CollegeException{
+        boolean isOk = false;
+        while (!isOk) {
+            try{
+                System.out.println("Enter committee name: ");
+                String name = s.nextLine();
+                System.out.println("Enter chairman name: ");
+                String chairman = s.nextLine();
+                c.addCommittee(name, chairman);
+                isOk = true;
+                System.out.println(SUCCESS);
+            } catch (CollegeException e){
+                System.out.println(e.getMessage());
+            }
         }
     }
 
     private static void addLecturerDetails(College c) {
-        Status res = Status.FAILED;
-        while (!res.equals(Status.SUCCESS)){
-            System.out.println("Enter lecturer name: ");
-            String name = s.nextLine();
+        boolean isOk = false;
+        while (!isOk){
+            try{
+                System.out.println("Enter lecturer name: ");
+                String name = s.nextLine();
 
-            System.out.println("Enter lecturer id: ");
-            String id = s.nextLine();
+                System.out.println("Enter lecturer id: ");
+                String id = s.nextLine();
 
-            System.out.println("Enter degree type (BA_DEGREE,MA_DEGREE, DOCTOR, PROFESSOR): ");
-            String degree = s.nextLine();
+                System.out.println("Enter degree type (BA_DEGREE,MA_DEGREE, DOCTOR, PROFESSOR): ");
+                String degree = s.nextLine();
 
-            while (!degree.equalsIgnoreCase("BA_DEGREE") &&
-                    !degree.equalsIgnoreCase("MA_DEGREE") &&
-                    !degree.equalsIgnoreCase("DOCTOR") &&
-                    !degree.equalsIgnoreCase("PROFESSOR")) {
+                while (!degree.equalsIgnoreCase("BA_DEGREE") &&
+                        !degree.equalsIgnoreCase("MA_DEGREE") &&
+                        !degree.equalsIgnoreCase("DOCTOR") &&
+                        !degree.equalsIgnoreCase("PROFESSOR")) {
 
-                System.out.println("Invalid Degree Type. Please enter one of the following: BA_DEGREE, MA_DEGREE, DOCTOR, PROFESSOR:");
-                degree = s.nextLine();
-            }
-
-            DegreeType degreeType = DegreeType.valueOf(degree.toUpperCase());
-            System.out.println("Enter degree name: ");
-            String degreeName = s.nextLine();
-
-            double salary = -1;
-            while (salary < 0) {
-                System.out.println("Enter salary (positive number):");
-                salary = s.nextDouble();
-                s.nextLine();
-
-                if (salary < 0) {
-                    System.out.println("Salary cannot be negative. Try again.");
+                    System.out.println("Invalid Degree Type. Please enter one of the following: BA_DEGREE, MA_DEGREE, DOCTOR, PROFESSOR:");
+                    degree = s.nextLine();
                 }
+
+                DegreeType degreeType = DegreeType.valueOf(degree.toUpperCase());
+                System.out.println("Enter degree name: ");
+                String degreeName = s.nextLine();
+
+                double salary = -1;
+                while (salary < 0) {
+                    System.out.println("Enter salary (positive number):");
+                    salary = s.nextDouble();
+                    s.nextLine();
+
+                    if (salary < 0) {
+                        System.out.println("Salary cannot be negative. Try again.");
+                    }
+                }
+                c.addLecturer(name, id, degreeType, degreeName, salary);
+                isOk = true;
+                System.out.println(SUCCESS);
+            } catch (CollegeException e) {
+                System.out.println(e.getMessage());
             }
-            res = c.addLecturer(name, id, degreeType, degreeName, salary);
-            System.out.println(res);
         }
     }
 
