@@ -29,7 +29,9 @@ public class Main {
             "Show Average of salary Department",
             "Show Lecturers details",
             "Show Committee details",
-            "Show Study Departments details"
+            "Show Study Departments details",
+            "Compare number of articles between doctor and professor"
+
     };
 
 
@@ -50,11 +52,30 @@ public class Main {
                 case 9 -> showAverageSalaryDep(c);
                 case 10 -> showLecturersDetails(c);
                 case 11 -> showCommitteeDetails(c);
-                // case 12 -> showDepartmentDetails(c); // for debugging
+                case 12 -> compareDoctorProfessorArticles(c);
+                // case 13 -> showDepartmentDetails(c); // for debugging
                 default -> System.out.println("Unexpected value");
             }
         } while (userChosen != 0);
     }
+
+    private static void compareDoctorProfessorArticles(College c) {
+        boolean isOk = false;
+        while (!isOk) {
+            try {
+                System.out.println("Enter Professor name: ");
+                String professor = s.nextLine();
+                System.out.println("Enter Doctor name: ");
+                String doctor = s.nextLine();
+                c.compareDoctorProfessorArticles(professor, doctor);
+                isOk = true;
+                System.out.println("v");
+            } catch (CollegeException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }
+
 
     private static void showCommitteeDetails(College c) {
         System.out.println(c.getCommittees());
@@ -221,6 +242,7 @@ public class Main {
                 }
 
                 DegreeType degreeType = DegreeType.valueOf(degree.toUpperCase());
+
                 System.out.println("Enter degree name: ");
                 String degreeName = s.nextLine();
 
@@ -234,7 +256,29 @@ public class Main {
                         System.out.println("Salary cannot be negative. Try again.");
                     }
                 }
-                c.addLecturer(name, id, degreeType, degreeName, salary);
+
+                if (degreeType == DegreeType.DOCTOR || degreeType == DegreeType.PROFESSOR) {
+                    System.out.println("Enter number of articles: ");
+                    int numOfArticle = s.nextInt();
+                    s.nextLine();
+                    String[] articlesArr = new String[numOfArticle];
+
+                    for (int i = 1; i < numOfArticle + 1; i++) {
+                        System.out.println("Enter article number " + i + ": ");
+                        String nameOfArticle = s.nextLine();
+                        articlesArr[i - 1] = nameOfArticle;
+                    }
+                    if(degreeType == DegreeType.PROFESSOR) {
+                        System.out.println("Enter name of institution: ");
+                        String institution = s.nextLine();
+                        c.addLecturer(name, id, degreeType, degreeName, salary, articlesArr, numOfArticle, institution);
+                    }else{
+                        c.addLecturer(name, id, degreeType, degreeName, salary, articlesArr, numOfArticle);
+                    }
+
+                }else{
+                    c.addLecturer(name, id, degreeType, degreeName, salary);
+                }
                 isOk = true;
                 System.out.println(SUCCESS);
             } catch (CollegeException e) {

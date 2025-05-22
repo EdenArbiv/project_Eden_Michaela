@@ -58,6 +58,26 @@ public class College {
         lecturers[numOfLecturers++] = new Lecturer(name, id, degreeType, degreeName, salary);
     }
 
+    public void addLecturer(String name, String id, DegreeType degreeType, String degreeName, double salary, String[] articlesArr, int numOfArticles) throws CollegeException {
+        if (Utils.isExist(lecturers,numOfLecturers,name)){
+            throw new CollegeException(LECTURER_EXIST.toString());
+        }
+        if (numOfLecturers == lecturers.length) {
+            lecturers = (Lecturer[]) Utils.resizeArr(lecturers);
+        }
+        lecturers[numOfLecturers++] = new Doctor(name, id, degreeType, degreeName, salary, articlesArr, numOfArticles);
+    }
+
+    public void addLecturer(String name, String id, DegreeType degreeType, String degreeName, double salary, String[] articlesArr,int numOfArticles, String institution) throws CollegeException {
+        if (Utils.isExist(lecturers,numOfLecturers,name)){
+            throw new CollegeException(LECTURER_EXIST.toString());
+        }
+        if (numOfLecturers == lecturers.length) {
+            lecturers = (Lecturer[]) Utils.resizeArr(lecturers);
+        }
+        lecturers[numOfLecturers++] = new Professor(name, id, degreeType, degreeName, salary, articlesArr, numOfArticles, institution);
+    }
+
 
     public void addCommittee(String name, String committeeChairman) throws CollegeException {
         if(Utils.isExist(committees, numOfCommittee, name)){
@@ -68,7 +88,7 @@ public class College {
         }
         Lecturer chairmanLecturer = findLecturerByName(committeeChairman);
         if(chairmanLecturer != null){
-            if(chairmanLecturer.getDegree() != DegreeType.DOCTOR && chairmanLecturer.getDegree() != DegreeType.PROFESSOR ){
+            if(!(chairmanLecturer instanceof Doctor || chairmanLecturer instanceof Professor)){
                 throw new CollegeException(AT_LEAST_DOCTOR.toString());
             }
             if (numOfCommittee == committees.length) {
@@ -83,6 +103,7 @@ public class College {
         sb.append("[");
         for (int i = 0; i < numOfLecturers; i++) {
             sb.append(lecturers[i].toString());
+
             if (i < numOfLecturers - 1) {
                 sb.append(System.lineSeparator());
             }
@@ -213,5 +234,14 @@ public class College {
             committee.removeLecturer(lecturer);
             lecturer.removeCommittee(committee);
         }
+    }
+
+    public void compareDoctorProfessorArticles(String professor, String doctor) throws CollegeException {
+//        Lecturer professorName = findLecturerByName(professor);
+//        Lecturer doctorName = findLecturerByName(doctor);
+//        if (professorName == null || doctorName == null){
+//            throw new CollegeException(LECTURER_NOT_EXIST.toString());
+//        }
+//
     }
 }
