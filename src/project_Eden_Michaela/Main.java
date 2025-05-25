@@ -30,7 +30,9 @@ public class Main {
             "Show Lecturers details",
             "Show Committee details",
 //            "Show Study Departments details",
-            "Compare number of articles between doctor and professor"
+            "Compare number of articles between doctor and professor",
+            "Compare committees",
+            "Duplicate committee"
 
     };
 
@@ -53,23 +55,57 @@ public class Main {
                 case 10 -> showLecturersDetails(c);
                 case 11 -> showCommitteeDetails(c);
                 case 12 -> compareDoctorProfessorArticles(c);
+                case 13 -> compareCommittees(c);
+                case 14 -> duplicateCommittee(c);
                 // case 13 -> showDepartmentDetails(c); // for debugging
                 default -> System.out.println("Unexpected value");
             }
         } while (userChosen != 0);
     }
 
+    private static void duplicateCommittee(College c) {
+        boolean isOk = false;
+        while (!isOk) {
+            try {
+                System.out.println("Enter committee:");
+                String committee = s.nextLine();
+                c.duplicateCommittee(committee);
+                isOk = true;
+                System.out.println(SUCCESS);
+            } catch (CollegeException e) {
+                System.out.println(e.getMessage());
+            } catch (CloneNotSupportedException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
+    private static void compareCommittees(College c) {
+        boolean isOk = false;
+        while (!isOk) {
+            try {
+                System.out.println("Enter committee 1 (at least doctor): ");
+                String committee1 = s.nextLine();
+                System.out.println("Enter committee 2 (at least doctor): ");
+                String committee2 = s.nextLine();
+                c.compareCommittees(committee1, committee2);
+                isOk = true;
+            } catch (CollegeException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }
+
     private static void compareDoctorProfessorArticles(College c) {
         boolean isOk = false;
         while (!isOk) {
             try {
-                System.out.println("Enter Professor name: ");
-                String professor = s.nextLine();
-                System.out.println("Enter Doctor name: ");
-                String doctor = s.nextLine();
-                c.compareDoctorProfessorArticles(professor, doctor);
+                System.out.println("Enter lecturer 1 (at least doctor): ");
+                String lecturer1 = s.nextLine();
+                System.out.println("Enter lecturer 2 (at least doctor): ");
+                String lecturer2 = s.nextLine();
+                c.compareDoctorProfessorArticles(lecturer1, lecturer2);
                 isOk = true;
-                System.out.println("v");
             } catch (CollegeException e) {
                 System.out.println(e.getMessage());
             }

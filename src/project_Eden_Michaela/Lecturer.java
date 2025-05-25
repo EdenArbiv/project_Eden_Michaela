@@ -1,7 +1,7 @@
 package project_Eden_Michaela;
 
 
-public class Lecturer {
+public class Lecturer implements Cloneable{
     private String name;
     private String id;
     private DegreeType degree;
@@ -95,4 +95,8 @@ public class Lecturer {
         return false;
     }
 
+    @Override
+    protected Lecturer clone() throws CloneNotSupportedException {
+        return (Lecturer) super.clone();
+    }
 }

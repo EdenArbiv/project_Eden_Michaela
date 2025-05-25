@@ -1,6 +1,6 @@
 package project_Eden_Michaela;
 
-public class Committee {
+public class Committee implements Cloneable{
     private String name;
     private Lecturer[] lecturers;
     private int numOfLecturers;
@@ -35,6 +35,16 @@ public class Committee {
         return committeeChairman;
     }
 
+    public int numOfArticles() {
+        int sum = 0;
+        for (int i = 0; i < numOfLecturers; i++) {
+            if (lecturers[i] instanceof Doctor lecturer) {
+                sum += lecturer.getNumOfArticlesArr();
+            }
+        }
+        return sum;
+    }
+
     public void removeLecturer(Lecturer lecturer) {
         for (int i = 0; i < numOfLecturers; i++) {
             if (lecturers[i].getName().equals(lecturer.getName())) {
@@ -47,6 +57,10 @@ public class Committee {
                 numOfLecturers--;
             }
         }
+    }
+
+    public int getNumOfLecturers() {
+        return numOfLecturers;
     }
 
     @Override
@@ -72,4 +86,15 @@ public class Committee {
         return false;
     }
 
+    @Override
+    protected Committee clone() throws CloneNotSupportedException {
+        Committee cloned = (Committee) super.clone();
+        cloned.name = "new " + name;
+        cloned.lecturers = new Lecturer[numOfLecturers];
+        for (int i = 0; i < numOfLecturers; i++) {
+            cloned.lecturers[i] = lecturers[i].clone();
+        }
+        cloned.committeeChairman = committeeChairman.clone();
+        return cloned;
+    }
 }

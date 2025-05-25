@@ -87,7 +87,7 @@ public class College {
         if(Utils.isExist(committees, numOfCommittee, committee)){
             throw new CollegeException(COMMITTEE_EXIST.toString());
         }
-        if(!(committee.getCommitteeChairman() instanceof Doctor || committee.getCommitteeChairman() instanceof Professor)){
+        if(!(committee.getCommitteeChairman() instanceof Doctor)){
             throw new CollegeException(AT_LEAST_DOCTOR.toString());
         }
         if (numOfCommittee == committees.length) {
@@ -241,12 +241,40 @@ public class College {
         }
     }
 
-    public void compareDoctorProfessorArticles(String professor, String doctor) throws CollegeException {
-//        Lecturer professorName = findLecturerByName(professor);
-//        Lecturer doctorName = findLecturerByName(doctor);
-//        if (professorName == null || doctorName == null){
-//            throw new CollegeException(LECTURER_NOT_EXIST.toString());
-//        }
-//
+    public void compareDoctorProfessorArticles(String lecturer1, String lecturer2) throws CollegeException {
+        Lecturer firstlecturer = findLecturerByName(lecturer1);
+        Lecturer secondLecturer = findLecturerByName(lecturer2);
+        if (firstlecturer == null || secondLecturer == null){
+            throw new CollegeException(LECTURER_NOT_EXIST.toString());
+        }
+        if (firstlecturer instanceof Doctor lecturer_1 && secondLecturer instanceof Doctor lecturer_2){
+            lecturer_1.compareTo(lecturer_2);
+        }else{
+            throw new CollegeException(AT_LEAST_DOCTOR.toString());
+        }
+
+    }
+
+    public void compareCommittees(String committee1, String committee2) throws CollegeException {
+        Committee firstCommittee = findCommitteeByName(committee1);
+        Committee secondCommittee = findCommitteeByName(committee2);
+        if (firstCommittee == null || secondCommittee == null){
+            throw new CollegeException(COMMITTEE_NOT_EXIST.toString());
+        }
+        CompareComByArticles comp1 = new CompareComByArticles();
+        CompareComByLecturers comp2 = new CompareComByLecturers();
+        comp1.compare(firstCommittee, secondCommittee);
+        comp2.compare(firstCommittee, secondCommittee);
+    }
+
+    public void duplicateCommittee(String committee) throws CollegeException, CloneNotSupportedException {
+        Committee committeeToDup = findCommitteeByName(committee);
+        if (committeeToDup == null){
+            throw new CollegeException(COMMITTEE_NOT_EXIST.toString());
+        }
+        if (numOfCommittee == committees.length) {
+            committees = (Committee[]) Utils.resizeArr(committees);
+        }
+        committees[numOfCommittee++] = committeeToDup.clone();
     }
 }
