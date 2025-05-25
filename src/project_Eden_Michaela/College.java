@@ -49,54 +49,55 @@ public class College {
 
 
     public void addLecturer(String name, String id, DegreeType degreeType, String degreeName, double salary) throws CollegeException {
-        if (Utils.isExist(lecturers,numOfLecturers,name)){
-            throw new CollegeException(LECTURER_EXIST.toString());
-        }
-        if (numOfLecturers == lecturers.length) {
-            lecturers = (Lecturer[]) Utils.resizeArr(lecturers);
-        }
-        lecturers[numOfLecturers++] = new Lecturer(name, id, degreeType, degreeName, salary);
+        addLecturer(new Lecturer(name, id, degreeType, degreeName, salary));
     }
 
     public void addLecturer(String name, String id, DegreeType degreeType, String degreeName, double salary, String[] articlesArr, int numOfArticles) throws CollegeException {
-        if (Utils.isExist(lecturers,numOfLecturers,name)){
-            throw new CollegeException(LECTURER_EXIST.toString());
-        }
-        if (numOfLecturers == lecturers.length) {
-            lecturers = (Lecturer[]) Utils.resizeArr(lecturers);
-        }
-        lecturers[numOfLecturers++] = new Doctor(name, id, degreeType, degreeName, salary, articlesArr, numOfArticles);
+        addLecturer(new Doctor(name, id, degreeType, degreeName, salary, articlesArr, numOfArticles));
     }
 
     public void addLecturer(String name, String id, DegreeType degreeType, String degreeName, double salary, String[] articlesArr,int numOfArticles, String institution) throws CollegeException {
-        if (Utils.isExist(lecturers,numOfLecturers,name)){
+        addLecturer(new Professor(name, id, degreeType, degreeName, salary, articlesArr, numOfArticles, institution));
+    }
+
+
+    public void addLecturer(Lecturer lecturer) throws CollegeException {
+        if (Utils.isExist(lecturers, numOfLecturers, lecturer)){
             throw new CollegeException(LECTURER_EXIST.toString());
         }
         if (numOfLecturers == lecturers.length) {
             lecturers = (Lecturer[]) Utils.resizeArr(lecturers);
         }
-        lecturers[numOfLecturers++] = new Professor(name, id, degreeType, degreeName, salary, articlesArr, numOfArticles, institution);
+        lecturers[numOfLecturers++] = lecturer;
     }
+
 
 
     public void addCommittee(String name, String committeeChairman) throws CollegeException {
-        if(Utils.isExist(committees, numOfCommittee, name)){
+        Lecturer chairmanLecturer = findLecturerByName(committeeChairman);
+        if (chairmanLecturer != null){
+            addCommittee(new Committee(name, chairmanLecturer));
+        }else{
+            throw new CollegeException(LECTURER_NOT_EXIST.toString());
+        }
+
+    }
+
+    public void addCommittee(Committee committee) throws CollegeException {
+        if(Utils.isExist(committees, numOfCommittee, committee)){
             throw new CollegeException(COMMITTEE_EXIST.toString());
         }
-        if(!Utils.isExist(lecturers,numOfLecturers, committeeChairman)){
-            throw new CollegeException(CHAIRMAN_NOT_EXIST.toString());
+        if(!(committee.getCommitteeChairman() instanceof Doctor || committee.getCommitteeChairman() instanceof Professor)){
+            throw new CollegeException(AT_LEAST_DOCTOR.toString());
         }
-        Lecturer chairmanLecturer = findLecturerByName(committeeChairman);
-        if(chairmanLecturer != null){
-            if(!(chairmanLecturer instanceof Doctor || chairmanLecturer instanceof Professor)){
-                throw new CollegeException(AT_LEAST_DOCTOR.toString());
-            }
-            if (numOfCommittee == committees.length) {
-                committees = (Committee[]) Utils.resizeArr(committees);
-            }
-            committees[numOfCommittee++] = new Committee(name, chairmanLecturer);
+        if (numOfCommittee == committees.length) {
+            committees = (Committee[]) Utils.resizeArr(committees);
         }
+        committees[numOfCommittee++] = committee;
+
     }
+
+
 
     public StringBuilder getLecturers() {
         StringBuilder sb = new StringBuilder();
@@ -148,13 +149,17 @@ public class College {
     }
 
     public void addStudyDepartment(String name, int numOfStudents) throws CollegeException {
-        if(Utils.isExist(studyDepartments, numOfStudyDepartment, name)){
+        addStudyDepartment(new StudyDepartment(name, numOfStudents));
+    }
+
+    public void addStudyDepartment(StudyDepartment studyDepartment) throws CollegeException {
+        if(Utils.isExist(studyDepartments, numOfStudyDepartment, studyDepartment)){
             throw new CollegeException(DEPARTMENT_EXIST.toString());
         }
         if (numOfStudyDepartment == studyDepartments.length) {
             studyDepartments = (StudyDepartment[]) Utils.resizeArr(studyDepartments);
         }
-        studyDepartments[numOfStudyDepartment++] = new StudyDepartment(name, numOfStudents);
+        studyDepartments[numOfStudyDepartment++] = studyDepartment;
     }
 
 

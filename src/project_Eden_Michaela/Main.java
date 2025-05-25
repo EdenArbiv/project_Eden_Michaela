@@ -29,7 +29,7 @@ public class Main {
             "Show Average of salary Department",
             "Show Lecturers details",
             "Show Committee details",
-            "Show Study Departments details",
+//            "Show Study Departments details",
             "Compare number of articles between doctor and professor"
 
     };
@@ -246,16 +246,10 @@ public class Main {
                 System.out.println("Enter degree name: ");
                 String degreeName = s.nextLine();
 
-                double salary = -1;
-                while (salary < 0) {
-                    System.out.println("Enter salary (positive number):");
-                    salary = s.nextDouble();
-                    s.nextLine();
-
-                    if (salary < 0) {
-                        System.out.println("Salary cannot be negative. Try again.");
-                    }
-                }
+                double salary;
+                System.out.println("Enter salary (positive number):");
+                salary = s.nextDouble();
+                s.nextLine();
 
                 if (degreeType == DegreeType.DOCTOR || degreeType == DegreeType.PROFESSOR) {
                     System.out.println("Enter number of articles: ");

@@ -65,4 +65,15 @@ public class StudyDepartment {
         sb.append("]}");
         return sb.toString();
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj instanceof StudyDepartment studyDepartment) {
+            return name.equals(studyDepartment.name);
+        }
+        return false;
+    }
 }

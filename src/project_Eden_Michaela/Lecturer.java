@@ -1,6 +1,5 @@
 package project_Eden_Michaela;
 
-import java.util.Arrays;
 
 public class Lecturer {
     private String name;
@@ -12,12 +11,12 @@ public class Lecturer {
     private int numOfCommittees;
     private StudyDepartment studyDepartment;
 
-    public Lecturer(String name, String id, DegreeType degree, String degreeName, double salary) {
+    public Lecturer(String name, String id, DegreeType degree, String degreeName, double salary) throws CollegeException {
         this.name = name;
         this.id = id;
         this.degree = degree;
         this.degreeName = degreeName;
-        this.salary = salary;
+        setSalary(salary);
         committees = new Committee[0];
     }
 
@@ -37,12 +36,20 @@ public class Lecturer {
         this.studyDepartment = studyDepartment;
     }
 
+    public void setSalary(double salary) throws CollegeException {
+        if (salary < 0) {
+            throw new CollegeException("salary must be positive");
+        }
+        this.salary = salary;
+    }
+
     public void addCommittee(Committee committee) {
         if (numOfCommittees == committees.length){
             committees = (Committee[]) Utils.resizeArr(committees);
         }
         committees[numOfCommittees++] = committee;
     }
+
 
     public void removeCommittee(Committee committee) {
         for (int i = 0; i < numOfCommittees; i++) {
@@ -75,6 +82,17 @@ public class Lecturer {
         sb.append("], studyDepartment=").append(studyDepartment);
         sb.append('}');
         return sb.toString();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj instanceof Lecturer lecturer) {
+            return name.equals(lecturer.name);
+        }
+        return false;
     }
 
 }

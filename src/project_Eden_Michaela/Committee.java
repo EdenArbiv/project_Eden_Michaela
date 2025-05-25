@@ -61,4 +61,15 @@ public class Committee {
         return sb.toString();
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj instanceof Committee committee) {
+            return name.equals(committee.name);
+        }
+        return false;
+    }
+
 }
