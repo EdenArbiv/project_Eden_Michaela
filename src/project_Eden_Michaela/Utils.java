@@ -8,28 +8,6 @@ public class Utils {
     }
 
 
-//    public static boolean isExist(Object[] arr, int size, String name) {
-//        for (int i = 0; i < size; i++) {
-//            if (arr[i] instanceof StudyDepartment studyDepartment) {
-//                if (studyDepartment.getName().equalsIgnoreCase(name)) {
-//                    return true;
-//                }
-//            }
-//            if (arr[i] instanceof Lecturer lecturer) {
-//                if (lecturer.getName().equalsIgnoreCase(name)) {
-//                    return true;
-//                }
-//            }
-//            if (arr[i] instanceof Committee committee) {
-//                if (committee.getName().equalsIgnoreCase(name)) {
-//                    return true;
-//                }
-//            }
-//        }
-//        return false;
-//
-//    }
-
     public static boolean isExist(Object[] arr, int size, Object obj) {
         for (int i = 0; i < size; i++) {
             if (arr[i].equals(obj)) {
