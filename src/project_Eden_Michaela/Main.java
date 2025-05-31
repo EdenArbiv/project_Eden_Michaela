@@ -291,6 +291,9 @@ public class Main {
                     System.out.println("Enter number of articles: ");
                     int numOfArticle = s.nextInt();
                     s.nextLine();
+                    if (numOfArticle < 0) {
+                        throw new CollegeException("Negative number");
+                    }
                     String[] articlesArr = new String[numOfArticle];
 
                     for (int i = 1; i < numOfArticle + 1; i++) {
