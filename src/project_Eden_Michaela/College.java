@@ -272,9 +272,6 @@ public class College {
         if (committeeToDup == null){
             throw new CollegeException(COMMITTEE_NOT_EXIST.toString());
         }
-        if (numOfCommittee == committees.length) {
-            committees = (Committee[]) Utils.resizeArr(committees);
-        }
-        committees[numOfCommittee++] = committeeToDup.clone();
+        committeeToDup.clone();
     }
 }
