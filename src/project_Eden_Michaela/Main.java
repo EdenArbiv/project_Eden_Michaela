@@ -1,4 +1,5 @@
 package project_Eden_Michaela;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -9,7 +10,7 @@ public class Main {
     // Eden 315253740
     // Michaela 323819342
 
-    public static void main(String[] args) throws CollegeException {
+    public static void main(String[] args) throws CollegeException, IOException {
         System.out.println("Enter collage name: ");
         String name = s.nextLine();
         College c = new College(name);
@@ -38,12 +39,14 @@ public class Main {
     };
 
 
-    public static void run(College c) throws CollegeException {
+    public static void run(College c) throws CollegeException, IOException {
         int userChosen;
+        College college = binaryFile.readPhoneBook();
+        System.out.println(phoneBook);
         do {
             userChosen = showMenu(s);
             switch (userChosen) {
-                case 0 -> System.out.println("Done... Bye");
+                case 0 -> exit(c);
                 case 1 -> addLecturerDetails(c);
                 case 2 -> addCommitteeDetails(c);
                 case 3 -> addLecturerCommitteeDetails(c);
@@ -63,6 +66,14 @@ public class Main {
             }
         } while (userChosen != 0);
     }
+
+    private static void exit(College c) throws IOException {
+        System.out.println("done.. bye");
+        String filename = "college.dat";
+        BinaryFile binaryFile = new BinaryFile(filename);
+        binaryFile.saveCollegeFile(c);
+    }
+
 
     private static void duplicateCommittee(College c) {
         boolean isOk = false;

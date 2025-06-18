@@ -1,8 +1,9 @@
 package project_Eden_Michaela;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Committee implements Cloneable{
+public class Committee implements Cloneable, Serializable {
     private String name;
     ArrayList<Lecturer> lecturers;
     private DegreeType degreeType;

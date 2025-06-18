@@ -1,9 +1,10 @@
 package project_Eden_Michaela;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class StudyDepartment {
+public class StudyDepartment implements Serializable {
     private String name;
     private int numOfStudents;
     ArrayList<Lecturer> lecturers;

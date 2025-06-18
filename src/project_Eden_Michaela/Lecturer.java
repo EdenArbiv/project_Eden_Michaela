@@ -1,9 +1,10 @@
 package project_Eden_Michaela;
 
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Lecturer implements Cloneable{
+public class Lecturer implements Cloneable, Serializable {
     private String name;
     private String id;
     private DegreeType degree;

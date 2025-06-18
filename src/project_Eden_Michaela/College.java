@@ -1,11 +1,12 @@
 package project_Eden_Michaela;
 
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import static project_Eden_Michaela.Status.*;
 
-public class College {
+public class College implements Serializable {
     private final String collegeName;
     ArrayList<Lecturer> lecturers;
     ArrayList<StudyDepartment> studyDepartments;
@@ -262,4 +263,5 @@ public class College {
         }
         committeeToDup.clone();
     }
+
 }
