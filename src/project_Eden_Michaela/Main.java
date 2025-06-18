@@ -16,20 +16,21 @@ public class Main {
         College college;
 
         try {
-            File file = new File(System.getProperty("user.dir") + "/src/project_Eden_Michaela/collegeData.dat");
+            File file = new File(System.getProperty("user.dir") + "/src/project_Eden_Michaela/college.dat");
 
             if (file.exists()) {
                 college = binaryFile.readCollegeFile();
                 System.out.println("Information loaded successfully");
+                run(college);
+                s.close();
             } else {
                 System.out.println("⚠️ קובץ לא קיים — מכללה אותחלה ריקה");
+                System.out.println("Enter collage name: ");
+                String name = s.nextLine();
+                College c = new College(name);
+                run(c);
+                s.close();
             }
-            System.out.println("Enter collage name: ");
-            String name = s.nextLine();
-            College c = new College(name);
-            run(c);
-            s.close();
-
         } catch (Exception e) {
             System.out.println("שגיאה: " + e.getMessage());
         }
