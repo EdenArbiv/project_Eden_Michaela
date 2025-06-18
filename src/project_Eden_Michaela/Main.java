@@ -1,4 +1,5 @@
 package project_Eden_Michaela;
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -11,11 +12,27 @@ public class Main {
     // Michaela 323819342
 
     public static void main(String[] args) throws CollegeException, IOException {
-        System.out.println("Enter collage name: ");
-        String name = s.nextLine();
-        College c = new College(name);
-        run(c);
-        s.close();
+        BinaryFile binaryFile = new BinaryFile("college.dat");
+        College college;
+
+        try {
+            File file = new File(System.getProperty("user.dir") + "/src/project_Eden_Michaela/collegeData.dat");
+
+            if (file.exists()) {
+                college = binaryFile.readCollegeFile();
+                System.out.println("✓ מידע נטען מהקובץ בהצלחה");
+            } else {
+                System.out.println("⚠️ קובץ לא קיים — מכללה אותחלה ריקה");
+                System.out.println("Enter collage name: ");
+                String name = s.nextLine();
+                College c = new College(name);
+                run(c);
+                s.close();
+            }
+        } catch (Exception e) {
+            System.out.println("שגיאה: " + e.getMessage());
+        }
+
     }
     private static final Scanner s = new Scanner(System.in);
     private static final String[] MENU = {
@@ -41,8 +58,6 @@ public class Main {
 
     public static void run(College c) throws CollegeException, IOException {
         int userChosen;
-        College college = binaryFile.readPhoneBook();
-        System.out.println(phoneBook);
         do {
             userChosen = showMenu(s);
             switch (userChosen) {
