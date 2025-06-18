@@ -1,31 +1,29 @@
 package project_Eden_Michaela;
 
+import java.util.ArrayList;
+
 public class Doctor extends Lecturer implements Comparable<Doctor>{
-    private String[] articleArr;
-    private int numOfArticlesArr;
+    ArrayList<String> articleArr;
 
 
-    public Doctor(String name, String id, DegreeType degree, String degreeName, double salary, String[] articleArr, int numOfArticlesArr) throws CollegeException {
+
+    public Doctor(String name, String id, DegreeType degree, String degreeName, double salary, ArrayList<String> articleArr) throws CollegeException {
         super(name, id, degree, degreeName, salary);
         this.articleArr = articleArr;
-        this.numOfArticlesArr = numOfArticlesArr;
     }
 
     public String articlesToString() {
         StringBuilder sb = new StringBuilder();
         sb.append(" ,articles = ");
-        for (int i = 0; i < numOfArticlesArr; i++) {
-            sb.append(articleArr[i]);
-            if (i != numOfArticlesArr -1){
+        for (int i = 0; i < articleArr.size(); i++) {
+            sb.append(articleArr.get(i));
+            if (i != articleArr.size() -1){
                 sb.append(", ");
             }
         }
         return sb.toString();
     }
 
-    public int getNumOfArticlesArr() {
-        return numOfArticlesArr;
-    }
 
     @Override
     public String toString() {
@@ -35,6 +33,6 @@ public class Doctor extends Lecturer implements Comparable<Doctor>{
 
     @Override
     public int compareTo(Doctor other) {
-        return Integer.compare(numOfArticlesArr, other.numOfArticlesArr);
+        return Integer.compare(articleArr.size(), other.articleArr.size());
     }
 }

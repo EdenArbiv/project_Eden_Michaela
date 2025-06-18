@@ -1,4 +1,5 @@
 package project_Eden_Michaela;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import static project_Eden_Michaela.Status.SUCCESS;
@@ -305,19 +306,19 @@ public class Main {
                     if (numOfArticle < 0) {
                         throw new CollegeException("Negative number");
                     }
-                    String[] articlesArr = new String[numOfArticle];
+                    ArrayList<String> articlesArr = new ArrayList<>();
 
                     for (int i = 1; i < numOfArticle + 1; i++) {
                         System.out.println("Enter article number " + i + ": ");
                         String nameOfArticle = s.nextLine();
-                        articlesArr[i - 1] = nameOfArticle;
+                        articlesArr.add(nameOfArticle);
                     }
                     if(degreeType == DegreeType.PROFESSOR) {
                         System.out.println("Enter name of institution: ");
                         String institution = s.nextLine();
-                        c.addLecturer(name, id, degreeType, degreeName, salary, articlesArr, numOfArticle, institution);
+                        c.addLecturer(name, id, degreeType, degreeName, salary, articlesArr,  institution);
                     }else{
-                        c.addLecturer(name, id, degreeType, degreeName, salary, articlesArr, numOfArticle);
+                        c.addLecturer(name, id, degreeType, degreeName, salary, articlesArr);
                     }
 
                 }else{

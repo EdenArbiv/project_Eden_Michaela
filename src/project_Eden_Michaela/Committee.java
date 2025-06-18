@@ -1,17 +1,18 @@
 package project_Eden_Michaela;
 
+import java.util.ArrayList;
+
 public class Committee implements Cloneable{
     private String name;
-    private Lecturer[] lecturers;
+    ArrayList<Lecturer> lecturers;
     private DegreeType degreeType;
-    private int numOfLecturers;
     private Lecturer committeeChairman;
 
     public Committee(String name, Lecturer committeeChairman, DegreeType degreeType) {
         this.name = name;
         this.committeeChairman = committeeChairman;
         this.degreeType = degreeType;
-        lecturers = new Lecturer[0];
+        lecturers = new ArrayList<>();
     }
 
     public DegreeType getDegreeType() {
@@ -26,15 +27,9 @@ public class Committee implements Cloneable{
         this.committeeChairman = committeeChairman;
     }
 
-    public boolean findLecturer(String name) {
-        return Utils.isExist(lecturers, numOfLecturers, name);
-    }
 
     public void addLecturer(Lecturer lecturer) {
-        if (numOfLecturers == lecturers.length){
-            lecturers = (Lecturer[]) Utils.resizeArr(lecturers);
-        }
-        lecturers[numOfLecturers++] = lecturer;
+        lecturers.add(lecturer);
     }
 
     public Lecturer getCommitteeChairman() {
@@ -43,39 +38,26 @@ public class Committee implements Cloneable{
 
     public int numOfArticles() {
         int sum = 0;
-        for (int i = 0; i < numOfLecturers; i++) {
-            if (lecturers[i] instanceof Doctor lecturer) {
-                sum += lecturer.getNumOfArticlesArr();
+        for (Lecturer lecturer : lecturers) {
+            if (lecturer instanceof Doctor lec) {
+                sum += lec.articleArr.size();
             }
         }
         return sum;
     }
 
     public void removeLecturer(Lecturer lecturer) {
-        for (int i = 0; i < numOfLecturers; i++) {
-            if (lecturers[i].getName().equals(lecturer.getName())) {
-                // להזיז שמאלה
-                for (int j = i; j < numOfLecturers - 1; j++) {
-                    lecturers[j] = lecturers[j + 1];
-                }
-                // מחיקת המקום האחרון
-                lecturers[numOfLecturers - 1] = null;
-                numOfLecturers--;
-            }
-        }
+        lecturers.remove(lecturer);
     }
 
-    public int getNumOfLecturers() {
-        return numOfLecturers;
-    }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Committee{name='").append(name).append("', chairman=").append(committeeChairman.getName()).append(", lecturers=[");
-        for (int i = 0; i < numOfLecturers; i++) {
-            sb.append(lecturers[i].getName());
-            if (i < numOfLecturers - 1) sb.append(", ");
+        for (int i = 0; i < lecturers.size(); i++) {
+            sb.append(lecturers.get(i).getName());
+            if (i < lecturers.size() - 1) sb.append(", ");
         }
         sb.append("]}");
         return sb.toString();
@@ -96,9 +78,9 @@ public class Committee implements Cloneable{
     protected Committee clone() throws CloneNotSupportedException {
         Committee cloned = (Committee) super.clone();
         cloned.name = "new " + name;
-        cloned.lecturers = new Lecturer[numOfLecturers];
-        for (int i = 0; i < numOfLecturers; i++) {
-            cloned.lecturers[i] = lecturers[i].clone();
+        cloned.lecturers = new ArrayList<>();
+        for (Lecturer lec : lecturers) {
+            cloned.lecturers.add(lec.clone());
         }
         cloned.committeeChairman = committeeChairman.clone();
         return cloned;

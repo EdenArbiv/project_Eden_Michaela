@@ -1,14 +1,15 @@
 package project_Eden_Michaela;
 
 
+import java.util.ArrayList;
+
 public class Lecturer implements Cloneable{
     private String name;
     private String id;
     private DegreeType degree;
     private String degreeName;
     private double salary;
-    private Committee[] committees;
-    private int numOfCommittees;
+    ArrayList<Committee> committees;
     private StudyDepartment studyDepartment;
 
     public Lecturer(String name, String id, DegreeType degree, String degreeName, double salary) throws CollegeException {
@@ -17,7 +18,7 @@ public class Lecturer implements Cloneable{
         this.degree = degree;
         this.degreeName = degreeName;
         setSalary(salary);
-        committees = new Committee[0];
+        committees = new ArrayList<>();
     }
 
     public String getName() {
@@ -44,25 +45,12 @@ public class Lecturer implements Cloneable{
     }
 
     public void addCommittee(Committee committee) {
-        if (numOfCommittees == committees.length){
-            committees = (Committee[]) Utils.resizeArr(committees);
-        }
-        committees[numOfCommittees++] = committee;
+        committees.add(committee);
     }
 
 
     public void removeCommittee(Committee committee) {
-        for (int i = 0; i < numOfCommittees; i++) {
-            if (committees[i].getName().equals(committee.getName())) {
-                // מזיז את כל שאר הקומיטאות שמאלה
-                for (int j = i; j < numOfCommittees - 1; j++) {
-                    committees[j] = committees[j + 1];
-                }
-                // ניקוי התא האחרון
-                committees[numOfCommittees - 1] = null;
-                numOfCommittees--;
-            }
-        }
+        committees.remove(committee);
     }
 
     @Override
@@ -75,9 +63,9 @@ public class Lecturer implements Cloneable{
         sb.append(", degreeName=").append(degreeName);
         sb.append(", salary=").append(salary);
         sb.append(", committees=[");
-        for (int i = 0; i < numOfCommittees; i++) {
-            sb.append(committees[i].getName());
-            if (i < numOfCommittees - 1) sb.append(", ");
+        for (int i = 0; i < committees.size(); i++) {
+            sb.append(committees.get(i).getName());
+            if (i < committees.size() - 1) sb.append(", ");
         }
         sb.append("], studyDepartment=").append(studyDepartment);
         sb.append('}');
