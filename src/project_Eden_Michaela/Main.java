@@ -20,15 +20,16 @@ public class Main {
 
             if (file.exists()) {
                 college = binaryFile.readCollegeFile();
-                System.out.println("✓ מידע נטען מהקובץ בהצלחה");
+                System.out.println("Information loaded successfully");
             } else {
                 System.out.println("⚠️ קובץ לא קיים — מכללה אותחלה ריקה");
-                System.out.println("Enter collage name: ");
-                String name = s.nextLine();
-                College c = new College(name);
-                run(c);
-                s.close();
             }
+            System.out.println("Enter collage name: ");
+            String name = s.nextLine();
+            College c = new College(name);
+            run(c);
+            s.close();
+
         } catch (Exception e) {
             System.out.println("שגיאה: " + e.getMessage());
         }

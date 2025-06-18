@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import static project_Eden_Michaela.Status.*;
 
 public class College implements Serializable {
+    private static final long serialVersionUID = 1L;
     private final String collegeName;
     ArrayList<Lecturer> lecturers;
     ArrayList<StudyDepartment> studyDepartments;
