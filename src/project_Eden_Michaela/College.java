@@ -73,10 +73,10 @@ public class College {
 
 
 
-    public void addCommittee(String name, String committeeChairman) throws CollegeException {
+    public void addCommittee(String name, String committeeChairman, DegreeType degreeType) throws CollegeException {
         Lecturer chairmanLecturer = findLecturerByName(committeeChairman);
         if (chairmanLecturer != null){
-            addCommittee(new Committee(name, chairmanLecturer));
+            addCommittee(new Committee(name, chairmanLecturer, degreeType));
         }else{
             throw new CollegeException(LECTURER_NOT_EXIST.toString());
         }
@@ -192,6 +192,9 @@ public class College {
         }
         if(committee == null){
             throw new CollegeException(COMMITTEE_NOT_EXIST.toString());
+        }
+        if(committee.getDegreeType() != lecturer.getDegree()) {
+            throw new CollegeException(COMMITTEE_DEGREETYPE.toString());
         }
         if(committee.findLecturer(lecName)) {
             throw new CollegeException(LECTURER_EX_COM.toString());

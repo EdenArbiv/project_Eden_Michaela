@@ -244,9 +244,20 @@ public class Main {
             try{
                 System.out.println("Enter committee name: ");
                 String name = s.nextLine();
+                System.out.println("Enter degree type (BA_DEGREE,MA_DEGREE, DOCTOR, PROFESSOR) of lecturer array: ");
+                String degree = s.nextLine();
+                while (!degree.equalsIgnoreCase("BA_DEGREE") &&
+                        !degree.equalsIgnoreCase("MA_DEGREE") &&
+                        !degree.equalsIgnoreCase("DOCTOR") &&
+                        !degree.equalsIgnoreCase("PROFESSOR")) {
+
+                    System.out.println("Invalid Degree Type. Please enter one of the following: BA_DEGREE, MA_DEGREE, DOCTOR, PROFESSOR:");
+                    degree = s.nextLine();
+                }
+                DegreeType degreeType = DegreeType.valueOf(degree.toUpperCase());
                 System.out.println("Enter chairman name: ");
                 String chairman = s.nextLine();
-                c.addCommittee(name, chairman);
+                c.addCommittee(name, chairman, degreeType);
                 isOk = true;
                 System.out.println(SUCCESS);
             } catch (CollegeException e){

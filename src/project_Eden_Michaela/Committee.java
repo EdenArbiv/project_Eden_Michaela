@@ -3,13 +3,19 @@ package project_Eden_Michaela;
 public class Committee implements Cloneable{
     private String name;
     private Lecturer[] lecturers;
+    private DegreeType degreeType;
     private int numOfLecturers;
     private Lecturer committeeChairman;
 
-    public Committee(String name, Lecturer committeeChairman) {
+    public Committee(String name, Lecturer committeeChairman, DegreeType degreeType) {
         this.name = name;
         this.committeeChairman = committeeChairman;
+        this.degreeType = degreeType;
         lecturers = new Lecturer[0];
+    }
+
+    public DegreeType getDegreeType() {
+        return degreeType;
     }
 
     public String getName() {
